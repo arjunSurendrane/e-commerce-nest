@@ -1,7 +1,7 @@
-## Api Docs
-# base_url: https://api-dev-ecommerce.onrender.com
+# Api Docs
+## base_url: https://api-dev-ecommerce.onrender.com
 
-# Get Products
+### Get Products
 This endpoint retrieves a list of products with pagination support.
 
 Request
