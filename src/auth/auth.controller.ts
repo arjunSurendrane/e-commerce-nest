@@ -1,14 +1,18 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './shema/user.schema';
+import { CustomRequest } from 'src/types/express';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/register')
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.authService.storeUserDataIntoDb(createUserDto);
+  async create(@Req() req: CustomRequest): Promise<User> {
+    if (!req.user) {
+      throw new Error('Unauthorized user');
+    }
+    const user = req.user;
+    return this.authService.storeUserDataIntoDb(user);
   }
 }
