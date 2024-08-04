@@ -5,8 +5,14 @@ import { ProductsService } from './products.service';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
   @Get()
-  findAll(@Query() query) {
-    return this.productsService.findAll(query);
+  async findAll(@Query() query) {
+    const product = await this.productsService.findAll(query);
+    const response = {
+      status: 'success',
+      statusCode: 200,
+      data: product,
+    };
+    return response;
   }
 
   @Get(':id')
